@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 
+
 function Hero() {
   return (
     <div
@@ -31,15 +32,15 @@ function Hero() {
           <p className="text-white text-base mt-2.5 font-light">Shipping to All Cities in Indonesia</p>
           <div className="flex flex-col gap-4 mt-2">
             <Button
-              className="border-white rounded-4xl text-white text-2xl p-6"
+              className="border-white bg-transparent rounded-4xl text-white text-2xl p-6"
             >
             <Link href={'/customGift'}> Custom a Gift</Link>
             </Button>
-            <Button className="border-white rounded-4xl text-white text-2xl p-6">
+            <Button className="border-white bg-transparent rounded-4xl text-white text-2xl p-6">
                 <Link href={'/ReadyMade'}> Shop Ready-Made</Link>
           
             </Button>
-            <Button className="border-white rounded-4xl text-white text-2xl p-6">
+            <Button className="border-white bg-transparent rounded-4xl text-white text-2xl p-6">
                 <Link href={'/corporateGifts'}>Corporate Gifts</Link>
               
             </Button>
