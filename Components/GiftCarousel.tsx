@@ -80,7 +80,7 @@ export default function GiftCarousel({
 
   return (
     <section className="w-11/12 mx-auto my-10">
-      {/* Scrollable track */}
+      <h4 className="text-center text-gray-600 mb-2.5">Featured Products</h4>
       <div
         ref={trackRef}
         className="flex gap-6 overflow-x-auto scroll-smooth pb-2 px-6"

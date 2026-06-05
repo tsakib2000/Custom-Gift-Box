@@ -1,7 +1,8 @@
-import Hero from "@/Components/Hero";
+import Hero from "@/components/Hero";
 
-import { GiftCardProps } from "@/Components/GiftCard";
-import GiftCarousel from "@/Components/GiftCarousel";
+import { GiftCardProps } from "@/components/GiftCard";
+import GiftCarousel from "@/components/GiftCarousel";
+import HeroText from "@/components/HeroText";
 
 
 export default function Home() {
@@ -48,7 +49,7 @@ export default function Home() {
     <div className="">
      <Hero/>
 
-
+        <HeroText/>
       <GiftCarousel
       items={GIFT_ITEMS} />
      

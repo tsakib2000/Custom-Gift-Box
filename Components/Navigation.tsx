@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 
 function NavigationBar() {
