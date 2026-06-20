@@ -20,7 +20,7 @@ export default async function AuthLayout({
     <div className=" min-h-screen ">
       
 
-        <div className="w-full min-h-screen space-y-6">
+        <div className=" min-h-screen w-full flex flex-col items-center justify-center">
           {children}
         </div>
       

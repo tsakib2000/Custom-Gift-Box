@@ -1,9 +1,7 @@
-import Hero from "@/components/Hero";
-
-import { GiftCardProps } from "@/components/GiftCard";
-import GiftCarousel from "@/components/GiftCarousel";
-import HeroText from "@/components/HeroText";
-
+import { GiftCardProps } from "@/Components/GiftCard";
+import GiftCarousel from "@/Components/GiftCarousel";
+import Hero from "@/Components/Hero";
+import HeroText from "@/Components/HeroText";
 
 export default function Home() {
 

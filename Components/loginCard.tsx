@@ -1,24 +1,20 @@
 "use client"
 
 import { useTheme } from "next-themes"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
+import { MagicCard } from "./ui/magic-card"
+import { Label } from "./ui/label"
+import { Input } from "./ui/input"
+import { Button } from "./ui/button"
 
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { MagicCard } from "@/components/ui/magic-card"
+
+
 
 export function LoginCard() {
   const { theme } = useTheme()
   return (
-    <Card className="w-full max-w-sm border-none p-0 shadow-none">
+    <Card
+     className="w-full max-w-sm border-none p-0 shadow-none">
       <MagicCard
         gradientColor={theme === "dark" ? "#262626" : "#D9D9D955"}
         className="p-0"
