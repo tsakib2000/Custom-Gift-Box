@@ -1,5 +1,6 @@
-import Anouncement from "@/Components/anouncement";
-import NavigationBar from "@/Components/Navigation";
+import Anouncement from "@/components/anouncement";
+import NavigationBar from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 export default function MainLayout({
   children,
@@ -10,7 +11,8 @@ export default function MainLayout({
     <>
       <Anouncement />
       <NavigationBar />
-      {children}
+      <main className="flex-1">{children}</main>
+      <Footer />
     </>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
-import { GiftCardProps } from "@/Components/GiftCard";
-import GiftCard from "@/Components/GiftCard";  
+import { GiftCardProps } from "@/components/GiftCard";
+import GiftCard from "@/components/GiftCard";  
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface GiftCarouselProps {

@@ -1,6 +1,6 @@
 
 
-import { LoginCard } from '@/Components/loginCard'
+import { LoginCard } from '@/components/loginCard'
 
 
 function login() {
