@@ -2,8 +2,9 @@ import { GiftCardProps } from "@/components/GiftCard";
 import GiftCarousel from "@/components/GiftCarousel";
 import Hero from "@/components/Hero";
 import HeroText from "@/components/HeroText";
+export default  function Home() {
 
-export default function Home() {
+
 
   const GIFT_ITEMS: GiftCardProps[] = [
   {
@@ -51,7 +52,9 @@ export default function Home() {
       <GiftCarousel
       items={GIFT_ITEMS} />
 
-
+   <div>
+ 
+   </div>
      
     </div>
   );

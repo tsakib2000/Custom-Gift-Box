@@ -28,7 +28,6 @@ export default function GiftCard({
           src={imageSrc}
           alt={imageAlt}
           fill
-          placeholder="blur"
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
           sizes="(max-width: 640px) 280px, (max-width: 768px) 300px, 320px"
         />

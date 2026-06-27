@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import Logo from '/logo_white.png'
-
 function Footer() {
   return (
     <footer className="bg-[#262626] text-white">
@@ -10,7 +8,10 @@ function Footer() {
           <div>
             <Link href="/">
               <Image
-                src={Logo}
+              
+                width={80}
+                height={80}
+                src="/logo_white.png"
                 alt="logo"
               />
             </Link>
