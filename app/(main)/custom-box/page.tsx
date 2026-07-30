@@ -5,6 +5,7 @@ interface BoxItem {
   id?: number;
   created_at: string;
   title: string;
+  price: number;
   imageSrc: string;
   imageAlt: string;
   category: BoxCategory;
@@ -60,6 +61,7 @@ export default async function  CustomBoxPage () {
                 <BoxCard
                   key={box.id}
                   title={box.title}
+                  price={box.price}
                   imageSrc={box.imageSrc}
                   imageAlt={box.imageAlt}
                   href={`/custom-box/${box.id}`}

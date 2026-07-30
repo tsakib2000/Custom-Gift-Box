@@ -3,6 +3,7 @@ import Link from "next/link";
 
 export interface BoxCardProps {
   title: string;
+  price: number;
   imageSrc: string;
   imageAlt: string;
   href?: string;
@@ -10,15 +11,17 @@ export interface BoxCardProps {
 
 export default function BoxCard({
   title,
+  price,
   imageSrc,
   imageAlt,
   href = "#",
 }: BoxCardProps) {
   return (
-    <Link
-      href={href}
-      className="group flex flex-col gap-4 cursor-pointer"
-    >
+    <div className="flex flex-col gap-4">
+      <Link
+        href={href}
+        className="group cursor-pointer"
+      >
       <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f5f3f0]">
         <Image
           src={imageSrc}
@@ -44,5 +47,15 @@ export default function BoxCard({
         </h3>
       </div>
     </Link>
+      <div className="flex items-center justify-between px-1">
+        <span className="text-lg font-light text-[#2c2420]">${price}</span>
+        <Link
+          href={href}
+          className="px-5 py-2 bg-[#2c2420] text-white text-xs tracking-widest uppercase rounded-full hover:bg-[#8a7560] transition-colors duration-300"
+        >
+          Choose Box
+        </Link>
+      </div>
+    </div>
   );
 }

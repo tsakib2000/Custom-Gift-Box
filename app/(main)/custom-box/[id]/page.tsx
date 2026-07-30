@@ -6,6 +6,7 @@ interface BoxItem {
   id?: number;
   created_at: string;
   title: string;
+  price: number;
   imageSrc: string;
   imageAlt: string;
   category: "Large Box" | "Medium Box" | "Small Box";
