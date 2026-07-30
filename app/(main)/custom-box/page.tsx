@@ -1,8 +1,8 @@
 import BoxCard from "@/Components/BoxCard";
 import getData from "@/lib/getData";
-
+type BoxCategory = "Large Box" | "Medium Box" | "Small Box";
 interface BoxItem {
-  id?: string;
+  id?: number;
   created_at: string;
   title: string;
   imageSrc: string;
@@ -10,7 +10,7 @@ interface BoxItem {
   category: BoxCategory;
 }
 
-type BoxCategory = "Large Box" | "Medium Box" | "Small Box";
+
 
 
 
