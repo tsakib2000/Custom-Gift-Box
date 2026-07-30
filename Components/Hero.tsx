@@ -34,7 +34,7 @@ function Hero() {
             <Button
               className="border-white bg-transparent rounded-4xl text-white text-2xl p-6"
             >
-            <Link href={'/customGift'}> Custom a Gift</Link>
+            <Link href={'/custom-box'}> Custom a Gift</Link>
             </Button>
             <Button className="border-white bg-transparent rounded-4xl text-white text-2xl p-6">
                 <Link href={'/ReadyMade'}> Shop Ready-Made</Link>

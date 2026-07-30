@@ -1,6 +1,6 @@
-import Anouncement from "@/components/anouncement";
-import NavigationBar from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import Anouncement from "@/Components/anouncement";
+import NavigationBar from "@/Components/Navigation";
+import Footer from "@/Components/Footer";
 
 export default function MainLayout({
   children,

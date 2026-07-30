@@ -11,7 +11,7 @@ export default async function  page()  {
     const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data: initialProducts } = await supabase.from("gifts").select().returns<Products[]>();
-  
+  console.log(initialProducts)
   return (
     <div>
 

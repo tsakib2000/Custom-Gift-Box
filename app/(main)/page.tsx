@@ -1,8 +1,8 @@
-import Banner from "@/components/banner";
-import { GiftCardProps } from "@/components/GiftCard";
-import GiftCarousel from "@/components/GiftCarousel";
-import Hero from "@/components/Hero";
-import HeroText from "@/components/HeroText";
+import Banner from "@/Components/banner";
+import { GiftCardProps } from "@/Components/GiftCard";
+import GiftCarousel from "@/Components/GiftCarousel";
+import Hero from "@/Components/Hero";
+import HeroText from "@/Components/HeroText";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 export default async function Home() {
