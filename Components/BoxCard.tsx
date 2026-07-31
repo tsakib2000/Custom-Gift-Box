@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BackdropVariants } from "./ChooseBoxModal";
 
 export interface BoxCardProps {
   title: string;
@@ -16,6 +17,11 @@ export default function BoxCard({
   imageAlt,
   href = "#",
 }: BoxCardProps) {
+const customGift = {title,
+  price,
+  imageSrc,
+  imageAlt,
+  href,}
   return (
     <div className="flex flex-col gap-4">
       <Link
@@ -49,12 +55,8 @@ export default function BoxCard({
     </Link>
       <div className="flex items-center justify-between px-1">
         <span className="text-lg font-light text-[#2c2420]">${price}</span>
-        <Link
-          href={href}
-          className="px-5 py-2 bg-[#2c2420] text-white text-xs tracking-widest uppercase rounded-full hover:bg-[#8a7560] transition-colors duration-300"
-        >
-          Choose Box
-        </Link>
+          <BackdropVariants customGift={customGift}/>
+        
       </div>
     </div>
   );

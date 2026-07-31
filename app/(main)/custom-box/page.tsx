@@ -33,7 +33,7 @@ export default async function  CustomBoxPage () {
       {/* Page Header */}
       <div className="mb-14 text-center">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-wide text-[#2c2420]">
-          Custom Box Collection
+          Choose Box
         </h1>
         <p className="mt-4 text-base sm:text-lg text-[#8a7560] max-w-xl mx-auto leading-relaxed">
           Choose a size, pick your favourites, and we&apos;ll craft a box that&apos;s
