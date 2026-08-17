@@ -1,0 +1,19 @@
+yaml
+Copy
+Edit
+name: Prevent Supabase Inactivity
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Runs at midnight every Sunday
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  ping-database:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make an API request to Supabase
+        run: |
+          curl -X GET "https://qjrcnsemukctnkjkyfct.supabase.co" \
+          -H "apikey: sb_publishable_Bt-_jD0j0XUYfyqYP0rEDg_tzTpopWv" \
+          -H "Authorization: Bearer sb_publishable_Bt-_jD0j0XUYfyqYP0rEDg_tzTpopWv"
