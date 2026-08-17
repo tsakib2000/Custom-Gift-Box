@@ -1,5 +1,6 @@
 // app/(auth)/layout.tsx
 import { redirect } from "next/navigation"
+import { AuraBackground } from "@/Components/aura-background"
 
 
 export const metadata = {
@@ -17,13 +18,10 @@ export default async function AuthLayout({
 
 
   return (
-    <div className=" min-h-screen ">
-      
-
-        <div className=" min-h-screen w-full flex flex-col items-center justify-center">
-          {children}
-        </div>
-      
-    </div>
+    <AuraBackground className="bg-[#faf8f2]">
+      <div className="min-h-screen w-full flex flex-col items-center justify-center">
+        {children}
+      </div>
+    </AuraBackground>
   )
 }

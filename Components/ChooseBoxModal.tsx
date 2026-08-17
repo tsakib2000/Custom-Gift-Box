@@ -1,10 +1,22 @@
 "use client";
 
 import {Button, Modal} from "@heroui/react";
-import { BoxCardProps } from "./BoxCard";
 
+interface BoxCardProps {
+    id?:string;
+    created_at?:string;
+  title: string;
+  price: number;
+  imageSrc: string;
+  imageAlt: string;
+  href?: string;
+}
 
-export function BackdropVariants({customGift}: BoxCardProps) {
+interface BackdropVariantsProps {
+  customGift: BoxCardProps;
+}
+
+export function BackdropVariants({customGift}: BackdropVariantsProps) {
   const variants = ['blur'] as const;
 
   return (
@@ -20,7 +32,7 @@ export function BackdropVariants({customGift}: BoxCardProps) {
                   <Modal.Icon className="bg-default text-foreground">
                   </Modal.Icon>
                   <Modal.Heading>
-                    Backdrop: {variant.charAt(0).toUpperCase() + variant.slice(1)}
+                    {customGift.title}
                   </Modal.Heading>
                 </Modal.Header>
                 <Modal.Body className={'bg-gray-700'}>
@@ -28,6 +40,9 @@ export function BackdropVariants({customGift}: BoxCardProps) {
                     This modal uses the <code>{variant}</code> backdrop variant. Compare the
                     different visual effects: opaque provides full opacity, blur adds a backdrop
                     filter, and transparent removes the background.
+                  </p>
+                  <p className="text-lg">
+                    {customGift.title} — ${customGift.price}
                   </p>
                 </Modal.Body>
                 <Modal.Footer>
