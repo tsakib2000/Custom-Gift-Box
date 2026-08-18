@@ -1,12 +1,9 @@
-yaml
-Copy
-Edit
 name: Prevent Supabase Inactivity
 
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Runs at midnight every Sunday
-  workflow_dispatch:  # Allows manual triggering
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
 
 jobs:
   ping-database:
@@ -15,5 +12,5 @@ jobs:
       - name: Make an API request to Supabase
         run: |
           curl -X GET "https://qjrcnsemukctnkjkyfct.supabase.co" \
-          -H "apikey: sb_publishable_Bt-_jD0j0XUYfyqYP0rEDg_tzTpopWv" \
-          -H "Authorization: Bearer sb_publishable_Bt-_jD0j0XUYfyqYP0rEDg_tzTpopWv"
+          -H "apikey: ${{ secrets.SUPABASE_KEY }}" \
+          -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}"
