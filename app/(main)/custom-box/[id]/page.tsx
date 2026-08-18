@@ -9,6 +9,7 @@ interface BoxItem {
   price: number;
   imageSrc: string;
   imageAlt: string;
+  customizable_image: string;
   category: "Large Box" | "Medium Box" | "Small Box";
 }
 

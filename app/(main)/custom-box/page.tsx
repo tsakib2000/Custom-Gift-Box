@@ -8,6 +8,7 @@ interface BoxItem {
   price: number;
   imageSrc: string;
   imageAlt: string;
+  customizable_image: string;
   category: BoxCategory;
 }
 
@@ -64,6 +65,7 @@ export default async function  CustomBoxPage () {
                   price={box.price}
                   imageSrc={box.imageSrc}
                   imageAlt={box.imageAlt}
+                  customizable_image={box.customizable_image}
                   href={`/custom-box/${box.id}`}
                 />
               ))}

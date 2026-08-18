@@ -13,7 +13,7 @@ function NavigationBar() {
   const menuLinks = [
     {
       name: "BUILD A BOX",
-      link: "buildAbox",
+      link: "custom-box",
     },
     {
       name: "PREMADE",

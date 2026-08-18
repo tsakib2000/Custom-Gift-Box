@@ -7,6 +7,7 @@ export interface BoxCardProps {
   price: number;
   imageSrc: string;
   imageAlt: string;
+  customizable_image?: string;
   href?: string;
 }
 
@@ -15,12 +16,14 @@ export default function BoxCard({
   price,
   imageSrc,
   imageAlt,
+  customizable_image,
   href = "#",
 }: BoxCardProps) {
 const customGift = {title,
   price,
   imageSrc,
   imageAlt,
+  customizable_image,
   href,}
   return (
     <div className="flex flex-col gap-4">
