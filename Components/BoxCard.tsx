@@ -8,7 +8,6 @@ export interface BoxCardProps {
   imageSrc: string;
   imageAlt: string;
   customizable_image?: string;
-  href?: string;
 }
 
 export default function BoxCard({
@@ -17,20 +16,16 @@ export default function BoxCard({
   imageSrc,
   imageAlt,
   customizable_image,
-  href = "#",
+  
 }: BoxCardProps) {
 const customGift = {title,
   price,
   imageSrc,
   imageAlt,
   customizable_image,
-  href,}
+  }
   return (
     <div className="flex flex-col gap-4">
-      <Link
-        href={href}
-        className="group cursor-pointer"
-      >
       <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f5f3f0]">
         <Image
           src={imageSrc}
@@ -55,7 +50,7 @@ const customGift = {title,
           {title}
         </h3>
       </div>
-    </Link>
+   
       <div className="flex items-center justify-between px-1">
         <span className="text-lg font-light text-[#2c2420]">${price}</span>
           <BackdropVariants customGift={customGift}/>

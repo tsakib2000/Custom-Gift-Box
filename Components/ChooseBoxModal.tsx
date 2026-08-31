@@ -3,18 +3,33 @@ import { Button, Modal } from "@heroui/react";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useState } from "react";
-import {  Lusitana, Bungee } from 'next/font/google';
+import { Lusitana, Bungee, Black_Ops_One, Rubik_Spray_Paint, Great_Vibes } from 'next/font/google';
 
-// 1. Initialize your different fonts
-const rubik_Spray_Paint = Bungee({ 
-  subsets: ['latin'], 
-  weight: ['400'] 
+// Initialize five distinct fonts
+const bungee = Bungee({
+  subsets: ['latin'],
+  weight: ['400'],
 });
 
-const lusitana = Lusitana({ 
-  subsets: ['latin'], 
-  weight: ['400', '700'] 
+const lusitana = Lusitana({
+  subsets: ['latin'],
+  weight: ['400', '700'],
 });
+
+const blackOpsOne = Black_Ops_One({
+  subsets: ['latin'],
+  weight: ['400'],
+});
+
+const rubikSprayPaint = Rubik_Spray_Paint({
+  subsets: ['latin'],
+  weight: ['400'],
+});
+
+const greatVibes = Great_Vibes({
+  subsets: ['latin'],
+  weight: ['400'],
+}); 
 
 interface BoxCardProps {
   id?: string;
@@ -32,8 +47,17 @@ interface BackdropVariantsProps {
 }
 
 export function BackdropVariants({ customGift }: BackdropVariantsProps) {
-  const [customText,setCustomText]=useState('')
+  const [customText, setCustomText] = useState('');
+  const [selectedFont, setSelectedFont] = useState(0);
   const variants = ["blur"] as const;
+
+  const fontOptions = [
+    { label: "Font A", fontClass: blackOpsOne.className },
+    { label: "Font B", fontClass: bungee.className },
+    { label: "Font C", fontClass: greatVibes.className },
+    { label: "Font D", fontClass: lusitana.className },
+    { label: "Font E", fontClass: rubikSprayPaint.className },
+  ];
 
   const formatPrice = (price: number) => {
     if (price >= 1000) {
@@ -57,8 +81,8 @@ console.log(customGift.customizable_image);
             <Modal.Container>
               <Modal.Dialog className="max-w-[850px] w-[95vw] md:w-full h-auto md:h-[580px] max-h-[95vh] md:max-h-[580px] bg-white rounded-[24px] md:rounded-[32px] flex flex-col md:flex-row overflow-hidden relative shadow-2xl outline-none border-none">
                 {/* Left Side: Product Image */}
-                <div className={`w-full md:w-[45%] h-[280px] md:h-full relative  flex items-center justify-center ${rubik_Spray_Paint.className}`}>
-                  <h1 className="text-3xl font-bold text-white z-1">{customText}</h1>
+                <div className="w-full md:w-[45%] h-[280px] md:h-full relative flex items-center justify-center">
+                  <h1 className={`text-3xl font-bold text-white z-1 ${fontOptions[selectedFont].fontClass}`}>{customText}</h1>
                   <Image
                     src={customGift.customizable_image || customGift.imageSrc}
                     alt={customGift.imageAlt}
@@ -129,37 +153,20 @@ console.log(customGift.customizable_image);
                         Choose The Font
                       </span>
                       <div className="flex flex-row flex-wrap justify-center gap-1.5 mt-0.5">
-                        <button
-
-                          type="button"
-                          className="px-4 py-1.5 bg-[#7f7f7f] text-white text-[11px] font-sans font-bold rounded-full border border-transparent shadow-sm cursor-pointer animate-none"
-                        >
-                          Font A
-                        </button>
-                        <button
-                          type="button"
-                          className="px-4 py-1.5 bg-white text-gray-500 text-[11px] font-sans font-normal rounded-full border border-[#d1cfcc] hover:bg-gray-50 transition-colors cursor-pointer"
-                        >
-                          Font B
-                        </button>
-                        <button
-                          type="button"
-                          className="px-4 py-1.5 bg-white text-gray-500 text-[11px] font-serif italic font-semibold rounded-full border border-[#d1cfcc] hover:bg-gray-50 transition-colors tracking-wide cursor-pointer"
-                        >
-                          Font C
-                        </button>
-                        <button
-                          type="button"
-                          className="px-4 py-1.5 bg-white text-gray-500 text-[11px] font-serif rounded-full border border-[#d1cfcc] hover:bg-gray-50 transition-colors cursor-pointer"
-                        >
-                          Font D
-                        </button>
-                        <button
-                          type="button"
-                          className="px-4 py-1.5 bg-white text-gray-500 text-[11px] font-mono font-bold rounded-full border border-[#d1cfcc] hover:bg-gray-50 transition-colors cursor-pointer"
-                        >
-                          Font E
-                        </button>
+                        {fontOptions.map((font, index) => (
+                          <button
+                            key={font.label}
+                            type="button"
+                            onClick={() => setSelectedFont(index)}
+                            className={`px-4 py-1.5 text-[11px] rounded-full border transition-colors cursor-pointer ${font.fontClass} ${
+                              index === selectedFont
+                                ? "bg-[#7f7f7f] text-white font-bold border-transparent shadow-sm"
+                                : "bg-white text-gray-500 border-[#d1cfcc] hover:bg-gray-50"
+                            }`}
+                          >
+                            {font.label}
+                          </button>
+                        ))}
                       </div>
                     </div>
 

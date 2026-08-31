@@ -66,7 +66,7 @@ export default async function  CustomBoxPage () {
                   imageSrc={box.imageSrc}
                   imageAlt={box.imageAlt}
                   customizable_image={box.customizable_image}
-                  href={`/custom-box/${box.id}`}
+                 
                 />
               ))}
             </div>
