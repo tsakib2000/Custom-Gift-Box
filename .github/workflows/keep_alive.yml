@@ -3,7 +3,7 @@ name: Prevent Supabase Inactivity
 on:
   schedule:
     # Every Sunday at 00:00 UTC
-    - cron: '0 0 * * 0'
+    - cron: '0 0 */3 * *'
 
   workflow_dispatch:
 
