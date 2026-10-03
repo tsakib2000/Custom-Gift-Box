@@ -7,10 +7,10 @@ import CorporateGiftCard, {
 } from "@/Components/CorporateGiftCard";
 
 interface CorporateGiftSearchProps {
-  gifts: CorporateGift[];
+  gifts?: CorporateGift[];
 }
 
-export default function CorporateGiftSearch({ gifts }: CorporateGiftSearchProps) {
+export default function CorporateGiftSearch({ gifts = [] }: CorporateGiftSearchProps) {
   const [query, setQuery] = useState("");
 
   const filtered = gifts.filter((gift) => {

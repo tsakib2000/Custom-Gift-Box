@@ -2,8 +2,6 @@ import { CorporateGift } from "@/Components/CorporateGiftCard";
 import CorporateGiftSearch from "@/Components/CorporateGiftSearch";
 import getData from "@/lib/getData";
 
-
-
 const bulkTiers = [
   { pcs: "50–199", price: 12, perk: "Standard branding" },
   { pcs: "200–499", price: 9, perk: "Free packaging design" },
@@ -11,7 +9,8 @@ const bulkTiers = [
 ];
 
 export default async function  CorporateGiftsPage () {
-  const mockGifts: CorporateGift[] = await getData('Products');
+  const mockGifts = await getData<CorporateGift>("Products");
+
   return (
     <div className="w-11/12 mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
       {/* Page Header */}

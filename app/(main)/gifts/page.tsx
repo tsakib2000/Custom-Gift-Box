@@ -1,21 +1,12 @@
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
-interface Products{
-  title: string,
-  imageSrc: string,
-  imageAlt: string
+import GiftsGrid from "@/Components/GiftsGrid";
 
-}
-
-export default async function  page()  {
-    const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
-  const { data: initialProducts } = await supabase.from("gifts").select().returns<Products[]>();
-  console.log(initialProducts)
+export default function GiftsPage() {
   return (
-    <div>
-
+    <div className="w-11/12 mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-wide text-[#2c2420]">
+        Gifts
+      </h1>
+      <GiftsGrid />
     </div>
-  )
+  );
 }
-
