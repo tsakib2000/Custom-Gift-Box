@@ -2,15 +2,19 @@ name: Prevent Supabase Inactivity
 
 on:
   schedule:
+    # Every Sunday at 00:00 UTC
     - cron: '0 0 * * 0'
+
   workflow_dispatch:
 
 jobs:
   ping-database:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Make an API request to Supabase
+      - name: Query Supabase Database
         run: |
-          curl -X GET "https://qjrcnsemukctnkjkyfct.supabase.co" \
-          -H "apikey: ${{ secrets.SUPABASE_KEY }}" \
-          -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}"
+          curl --fail --silent --show-error \
+            "https://qjrcnsemukctnkjkyfct.supabase.co/rest/v1/gifts?select=id&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}"
