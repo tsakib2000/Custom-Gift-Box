@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
+import { CartDrawer } from "./CartDrawer";
 
 function NavigationBar() {
   const pathname = usePathname();
@@ -52,7 +53,7 @@ function NavigationBar() {
           <ul className="flex gap-7 *:text-white font-light w-full justify-end mb-2">
             <li><Link href={"/login"}>Login</Link></li>
             <li><Link href={"/register"}>Register</Link></li>
-            <li><Link href={"/cart"} /> Cart</li>
+            <li><CartDrawer/></li>
           </ul>
           <ul className="hidden md:flex gap-4 text-white font-bold">
             {menuLinks.map((link) => (

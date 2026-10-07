@@ -15,7 +15,6 @@ export default function LoginForm() {
     const form = new FormData(e.currentTarget);
     const email = String(form.get("email") ?? "");
     const password = String(form.get("password") ?? "");
-
     const next: typeof errors = {};
     if (!email) next.email = "Email is required";
     else if (!/^\S+@\S+\.\S+$/.test(email)) next.email = "Enter a valid email";
