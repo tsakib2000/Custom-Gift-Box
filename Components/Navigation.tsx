@@ -2,14 +2,32 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { CartDrawer } from "./CartDrawer";
+import { useTheme } from "@/app/store";
+import { useAuth } from "@/lib/useAuth";
 
 function NavigationBar() {
+  const theme = useTheme((state) => state.theme);
+  console.log("Current theme:", theme); // Log the current theme to the console
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, loading, signOut } = useAuth();
   const isHome = pathname === "/";
+
+  async function handleSignOut() {
+    await signOut();
+    router.refresh();
+  }
 
   const menuLinks = [
     {
@@ -51,8 +69,43 @@ function NavigationBar() {
 
         <div className="">
           <ul className="flex gap-7 *:text-white font-light w-full justify-end mb-2">
-            <li><Link href={"/login"}>Login</Link></li>
-            <li><Link href={"/register"}>Register</Link></li>
+            {!loading && user ? (
+              <li>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      className="max-w-[10rem] truncate uppercase tracking-[0.1em] transition hover:opacity-80"
+                    >
+                      {user.user_metadata?.full_name ??
+                        user.user_metadata?.name ??
+                        user.email}
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-white mr-1.5" align="end">
+                    <DropdownMenuLabel className="text-xs uppercase tracking-[0.14em] text-[#8a7560]">
+                      {user.email}
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      className="cursor-pointer text-[#b4534a] focus:bg-gray-100"
+                      onSelect={handleSignOut}
+                    >
+                      Sign out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link href={"/login"}>Login</Link>
+                </li>
+                <li>
+                  <Link href={"/register"}>Register</Link>
+                </li>
+              </>
+            )}
             <li><CartDrawer/></li>
           </ul>
           <ul className="hidden md:flex gap-4 text-white font-bold">

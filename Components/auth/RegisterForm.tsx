@@ -2,9 +2,12 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Check, Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Check, Eye, EyeOff, MailCheck } from "lucide-react";
 import { Button } from "@/Components/ui/button";
 import { AuthField, authButtonStyles } from "@/Components/auth/fields";
+import { authErrorMessage } from "@/Components/auth/errors";
+import { createClient } from "@/utils/supabase/client";
 
 function scorePassword(value: string) {
   let score = 0;
@@ -20,14 +23,19 @@ const LABELS = ["Too short", "Weak", "Fair", "Good", "Strong"];
 const BAR_COLORS = ["#d8cfc5", "#c98b7a", "#d4b483", "#a8b58a", "#7d9b76"];
 
 export default function RegisterForm() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formError, setFormError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
+  const [confirmEmail, setConfirmEmail] = useState<string | null>(null);
 
   const score = useMemo(() => scorePassword(password), [password]);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setFormError(null);
     const form = new FormData(e.currentTarget);
     const get = (k: string) => String(form.get(k) ?? "");
 
@@ -46,10 +54,72 @@ export default function RegisterForm() {
     if (!form.get("terms")) next.terms = "Please accept the terms to continue";
 
     setErrors(next);
+    if (Object.keys(next).length > 0) return;
+
+    setPending(true);
+    try {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { name: name.trim() },
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+      if (error) {
+        setFormError(authErrorMessage(error));
+        return;
+      }
+      if (!data.session) {
+        setConfirmEmail(email);
+        return;
+      }
+      router.push("/");
+      router.refresh();
+    } catch (err) {
+      setFormError(authErrorMessage(err));
+    } finally {
+      setPending(false);
+    }
+  }
+
+  if (confirmEmail) {
+    return (
+      <div className="grid gap-4 rounded-xl border border-[#d8cfc5] bg-white p-6 text-center">
+        <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-[#eef1e6] text-[#7d9b76]">
+          <MailCheck size={20} />
+        </span>
+        <div className="grid gap-1.5">
+          <h2 className="text-lg font-medium text-[#2c2420]">
+            Check your email
+          </h2>
+          <p className="text-sm leading-relaxed text-[#8a7560]">
+            We sent a confirmation link to{" "}
+            <span className="font-medium text-[#2c2420]">{confirmEmail}</span>.
+            Confirm your address to activate your account.
+          </p>
+        </div>
+        <Link
+          href="/login"
+          className="text-xs uppercase tracking-[0.14em] text-[#8a7560] underline-offset-4 hover:underline"
+        >
+          Back to sign in
+        </Link>
+      </div>
+    );
   }
 
   return (
     <form onSubmit={handleSubmit} noValidate className="grid gap-5">
+      {formError && (
+        <p
+          role="alert"
+          className="rounded-lg border border-[#e2b8b3] bg-[#fbf1ef] px-3.5 py-2.5 text-sm text-[#b4534a]"
+        >
+          {formError}
+        </p>
+      )}
       <AuthField
         id="name"
         label="Full name"
@@ -140,9 +210,9 @@ export default function RegisterForm() {
         )}
       </div>
 
-      <Button type="submit" className={authButtonStyles}>
+      <Button type="submit" disabled={pending} className={authButtonStyles}>
         <Check size={16} className="mr-1.5" />
-        Create Account
+        {pending ? "Creating account…" : "Create Account"}
       </Button>
     </form>
   );
