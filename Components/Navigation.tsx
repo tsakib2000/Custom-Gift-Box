@@ -13,15 +13,16 @@ import {
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { CartDrawer } from "./CartDrawer";
-import { useTheme } from "@/app/store";
-import { useAuth } from "@/lib/useAuth";
+import { useTheme, useAuth } from "@/app/store";
 
 function NavigationBar() {
   const theme = useTheme((state) => state.theme);
   console.log("Current theme:", theme); // Log the current theme to the console
   const pathname = usePathname();
   const router = useRouter();
-  const { user, loading, signOut } = useAuth();
+  const user = useAuth((state) => state.user);
+  const loading = useAuth((state) => state.loading);
+  const signOut = useAuth((state) => state.signOut);
   const isHome = pathname === "/";
 
   async function handleSignOut() {
