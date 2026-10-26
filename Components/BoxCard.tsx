@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
 import { BackdropVariants } from "./ChooseBoxModal";
+import { useCart } from "@/app/store";
 
 export interface BoxCardProps {
+  id?: number | string;
   title: string;
   price: number;
   imageSrc: string;
@@ -11,19 +14,33 @@ export interface BoxCardProps {
 }
 
 export default function BoxCard({
+  id,
   title,
   price,
   imageSrc,
   imageAlt,
   customizable_image,
-  
+
 }: BoxCardProps) {
-const customGift = {title,
-  price,
-  imageSrc,
-  imageAlt,
-  customizable_image,
+  const addItem = useCart((state) => state.addItem);
+
+  const customGift = {id,
+    title,
+    price,
+    imageSrc,
+    imageAlt,
+    customizable_image,
+    }
+
+  function handleAddToCart() {
+    addItem({
+      id: id != null ? `box-${id}` : `box-${title}`,
+      title,
+      price,
+      imageSrc,
+    });
   }
+
   return (
     <div className="flex flex-col gap-4">
       <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f5f3f0]">
@@ -50,11 +67,19 @@ const customGift = {title,
           {title}
         </h3>
       </div>
-   
-      <div className="flex items-center justify-between px-1">
+
+      <div className="flex items-center justify-between gap-2 px-1">
         <span className="text-lg font-light text-[#2c2420]">${price}</span>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className="rounded-full border border-[#8a7560] px-4 py-2 text-xs font-medium uppercase tracking-[0.12em] text-[#8a7560] transition-colors duration-300 hover:bg-[#8a7560] hover:text-white cursor-pointer"
+          >
+            Add to Cart
+          </button>
           <BackdropVariants customGift={customGift}/>
-        
+        </div>
       </div>
     </div>
   );

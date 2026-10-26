@@ -1,22 +1,41 @@
 "use client";
 
 import Image from "next/image";
+import { useCart } from "@/app/store";
 
 export interface GiftCardProps {
+  id?: number | string;
   category: string;
   title: string;
   imageSrc: string;
   imageAlt: string;
+  price?: number;
   href?: string;
 }
 
 export default function GiftCard({
+  id,
   category,
   title,
   imageSrc,
   imageAlt,
+  price,
   href = "#",
 }: GiftCardProps) {
+  const addItem = useCart((state) => state.addItem);
+
+  const canAddToCart = id != null && typeof price === "number";
+
+  function handleAddToCart(e: React.MouseEvent) {
+    e.preventDefault();
+    if (!canAddToCart) return;
+    addItem({
+      id: `gift-${id}`,
+      title,
+      price: price as number,
+      imageSrc,
+    });
+  }
   return (
     <a
       href={href}
@@ -51,6 +70,20 @@ export default function GiftCard({
         <h3 className="text-[17px] font-light leading-snug text-[#2c2420] tracking-wide group-hover:text-[#8a7560] transition-colors duration-300">
           {title}
         </h3>
+        {canAddToCart && (
+          <div className="mt-1 flex items-center justify-between">
+            <span className="text-lg font-light text-[#2c2420]">
+              ${price}
+            </span>
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              className="rounded-full border border-[#8a7560] px-4 py-1.5 text-xs font-medium uppercase tracking-[0.12em] text-[#8a7560] transition-colors duration-300 hover:bg-[#8a7560] hover:text-white cursor-pointer"
+            >
+              Add to Cart
+            </button>
+          </div>
+        )}
       </div>
     </a>
   );

@@ -2,10 +2,12 @@
 
 import { useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
-import { useAuth } from "@/app/store";
+import { useAuth, useCart } from "@/app/store";
 
 export default function AuthListener() {
   useEffect(() => {
+    useCart.persist.rehydrate();
+
     const supabase = createClient();
     let mounted = true;
 

@@ -1,11 +1,13 @@
 "use client";
 
 import { useProducts } from "@/lib/useProducts";
+import { useCart } from "@/app/store";
 import Image from "next/image";
 import { Loading } from "./Loading";
 
 export default function GiftsGrid() {
   const { data: products, isPending, isError, error, refetch } = useProducts();
+  const addItem = useCart((state) => state.addItem);
 
   if (isPending) return <Loading className="w-30 h-30 " />;
   if (isError) return <p>Failed to load gifts: {error.message}</p>;
@@ -22,7 +24,23 @@ export default function GiftsGrid() {
             )}
             <p className="mt-3 text-sm text-[#2c2420]">{p.title}</p>
             <p className="text-xs text-[#8a7560]">{p.category}</p>
-            <p className="text-lg font-light text-[#2c2420]">${p.price}</p>
+            <div className="mt-2 flex items-center justify-between">
+              <p className="text-lg font-light text-[#2c2420]">${p.price}</p>
+              <button
+                type="button"
+                onClick={() =>
+                  addItem({
+                    id: `gift-${p.id}`,
+                    title: p.title,
+                    price: p.price,
+                    imageSrc: p.imageSrc,
+                  })
+                }
+                className="rounded-full border border-[#8a7560] px-4 py-1.5 text-xs font-medium uppercase tracking-[0.12em] text-[#8a7560] transition-colors duration-300 hover:bg-[#8a7560] hover:text-white cursor-pointer"
+              >
+                Add to Cart
+              </button>
+            </div>
           </li>
         ))}
       </ul>

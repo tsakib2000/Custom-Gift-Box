@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useCart } from "@/app/store";
 
 export interface CorporateGift {
   id: number;
@@ -15,13 +18,20 @@ interface CorporateGiftCardProps {
 }
 
 export default function CorporateGiftCard({ gift }: CorporateGiftCardProps) {
-  const { name, category, description, price, image_url } = gift;
+  const { id, name, category, description, price, image_url } = gift;
+  const addItem = useCart((state) => state.addItem);
+
+  function handleAddToCart() {
+    addItem({
+      id: `corporate-${id}`,
+      title: name,
+      price,
+      imageSrc: image_url,
+    });
+  }
 
   return (
-    <a
-      href="#"
-      className="group flex flex-col gap-4 rounded-2xl bg-white border border-[#e8e0d6] p-4 transition-shadow duration-300 hover:shadow-[0_8px_30px_rgba(138,117,96,0.12)]"
-    >
+    <div className="group flex flex-col gap-4 rounded-2xl bg-white border border-[#e8e0d6] p-4 transition-shadow duration-300 hover:shadow-[0_8px_30px_rgba(138,117,96,0.12)]">
       {/* Image */}
       <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#f5f3f0]">
         <Image
@@ -62,15 +72,24 @@ export default function CorporateGiftCard({ gift }: CorporateGiftCardProps) {
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between border-t border-[#eee6dc] pt-3 px-1">
+      <div className="flex flex-col gap-3 border-t border-[#eee6dc] pt-3 px-1">
         <span className="text-lg font-light text-[#2c2420]">
           ${price}
           <span className="text-xs text-[#a89880]"> / unit</span>
         </span>
-        <span className="text-xs font-medium uppercase tracking-[0.14em] text-[#8a7560] border border-[#d8cfc5] rounded-full px-4 py-1.5 transition-colors duration-300 group-hover:bg-[#8a7560] group-hover:text-white group-hover:border-[#8a7560]">
-          Request Quote
-        </span>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className="flex-1 min-w-[7rem] rounded-full bg-[#2c2420] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-300 hover:bg-[#8a7560] cursor-pointer"
+          >
+            Add to Cart
+          </button>
+          <span className="flex-1 min-w-[7rem] rounded-full border border-[#d8cfc5] px-4 py-1.5 text-center text-[11px] font-medium uppercase tracking-[0.14em] text-[#8a7560] transition-colors duration-300 group-hover:bg-[#8a7560] group-hover:text-white group-hover:border-[#8a7560]">
+            Request Quote
+          </span>
+        </div>
       </div>
-    </a>
+    </div>
   );
 }

@@ -1,8 +1,9 @@
 "use client";
-import { Button, Modal } from "@heroui/react";
+import { Button, Modal, useOverlayState } from "@heroui/react";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useState } from "react";
+import { useCart } from "@/app/store";
 import { Lusitana, Bungee, Black_Ops_One, Rubik_Spray_Paint, Great_Vibes } from 'next/font/google';
 
 // Initialize five distinct fonts
@@ -32,7 +33,7 @@ const greatVibes = Great_Vibes({
 }); 
 
 interface BoxCardProps {
-  id?: string;
+  id?: number | string;
   created_at?: string;
   title: string;
   price: number;
@@ -49,6 +50,8 @@ interface BackdropVariantsProps {
 export function BackdropVariants({ customGift }: BackdropVariantsProps) {
   const [customText, setCustomText] = useState('');
   const [selectedFont, setSelectedFont] = useState(0);
+  const addItem = useCart((state) => state.addItem);
+  const modalState = useOverlayState();
   const variants = ["blur"] as const;
 
   const fontOptions = [
@@ -67,10 +70,24 @@ export function BackdropVariants({ customGift }: BackdropVariantsProps) {
     return `$ ${price}.000`;
   };
 console.log(customGift.customizable_image);
+
+  function handleAddToBox() {
+    const trimmed = customText.trim();
+    addItem({
+      id: `box-${customGift.id ?? customGift.title}${
+        trimmed ? `-${trimmed}` : ""
+      }`,
+      title: trimmed ? `${customGift.title} — “${trimmed}”` : customGift.title,
+      price: customGift.price,
+      imageSrc: customGift.customizable_image || customGift.imageSrc,
+    });
+    modalState.close();
+  }
+
   return (
     <div className="flex flex-wrap gap-4">
       {variants.map((variant) => (
-        <Modal key={variant}>
+        <Modal key={variant} state={modalState}>
           <Button
             className="bg-[#e4deda] hover:bg-[#d5ceca] text-[#2c2420] py-2 px-4 rounded-xl text-sm font-medium transition-colors"
             variant="secondary"
@@ -174,6 +191,7 @@ console.log(customGift.customizable_image);
                     <div className="w-full">
                       <button
                         type="button"
+                        onClick={handleAddToBox}
                         className="w-full py-2 px-6 border border-[#b59e85] text-[#b59e85] hover:bg-[#b59e85]/5 active:bg-[#b59e85]/10 bg-white font-normal text-xs rounded-full transition-all tracking-wide cursor-pointer"
                       >
                         Add To Box

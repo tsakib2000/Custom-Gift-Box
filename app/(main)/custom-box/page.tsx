@@ -61,6 +61,7 @@ export default async function  CustomBoxPage () {
               {items.map((box) => (
                 <BoxCard
                   key={box.id}
+                  id={box.id}
                   title={box.title}
                   price={box.price}
                   imageSrc={box.imageSrc}
